@@ -95,27 +95,29 @@ Base Qwen2-VL-2B
 ```
 vlm-hallucination-project/
 ├── README.md                    # 本文件
-├── EXPERIMENT_LOG.md            # 详细实验日志
+├── EXPERIMENT_LOG.md            # 详细实验日志（含踩坑记录）
 ├── .gitignore
 ├── scripts/
-│   ├── prepare_data.py          # 数据下载与预处理
-│   ├── prepare_sft_from_dpo.py  # 从 RLAIF-V 构造 SFT 数据
-│   ├── prepare_grpo_data.py     # GRPO 数据准备（含图像保存）
-│   ├── train_sft.py             # Stage 1: SFT 训练
+│   ├── prepare_data.py          # 数据下载与预处理（SFT/GRPO/DPO/Eval）
+│   ├── prepare_sft_from_dpo.py  # 从 RLAIF-V chosen 构造 SFT 数据
+│   ├── prepare_grpo_v2.py       # GRPO 数据准备（含图像保存）
+│   ├── train_sft.py             # Stage 1: SFT QLoRA 训练
 │   ├── train_grpo.py            # Stage 2a: GRPO 训练入口
-│   ├── grpo_vlm_trainer.py      # 自定义 GRPO VLM 训练器（核心）
-│   ├── train_dpo.py             # Stage 2b: DPO 训练
+│   ├── grpo_vlm_trainer.py      # 自定义 GRPO VLM 训练器（核心创新）
+│   ├── train_dpo.py             # Stage 2b: DPO 训练（TRL 版，VLM 不兼容）
+│   ├── train_dpo_custom.py      # Stage 2b: 自定义 DPO 训练循环（实际使用）
 │   ├── evaluate.py              # POPE 评测脚本
+│   ├── visualize.py             # 生成可视化图表
 │   └── demo_gradio.py           # Gradio 交互演示
-├── configs/                     # 训练配置
+├── configs/                     # 训练配置（预留）
 ├── data/
-│   ├── sft/                     # SFT 数据 (JSON)
-│   ├── grpo/                    # GRPO 数据 (JSON + images)
-│   ├── dpo/                     # DPO 偏好数据 (JSON)
-│   └── eval/                    # POPE 评测数据
-├── checkpoints/                 # 模型权重 (gitignored)
+│   ├── grpo/aokvqa_grpo.json    # A-OKVQA 可验证 QA 数据 (8K)
+│   ├── dpo/rlaifv_dpo.json      # RLAIF-V 偏好对数据 (10K)
+│   └── eval/pope_eval.json      # POPE 评测数据 (9K)
+├── checkpoints/                 # 模型权重 (gitignored, 见 HuggingFace)
 ├── logs/
-│   └── eval_results/            # 评测结果 JSON
+│   ├── eval_results/            # 评测结果 JSON (11 files + summary)
+│   └── visualizations/          # 可视化图表 (4 PNG)
 └── wandb/                       # W&B 日志 (gitignored)
 ```
 
@@ -157,9 +159,9 @@ python -u scripts/train_sft.py --lora_r 32 --lora_alpha 64 --epochs 1 \
 python -u scripts/train_grpo.py --model_path checkpoints/sft-qwen2vl-2b-merged \
     --num_generations 4 --max_steps 300 --reward_mode full --use_wandb
 
-# 6. Stage 2b: DPO
-python -u scripts/train_dpo.py --model_path checkpoints/sft-qwen2vl-2b-merged \
-    --beta 0.1 --epochs 1 --use_wandb
+# 6. Stage 2b: DPO (使用自定义训练循环，TRL DPOTrainer 与 VLM 不兼容)
+python -u scripts/train_dpo_custom.py --model_path checkpoints/sft-qwen2vl-2b-merged \
+    --beta 0.1 --epochs 1 --grad_accum 8 --lr 5e-7 --max_samples 3000 --use_wandb
 
 # 7. 评测
 python -u scripts/evaluate.py --model_path checkpoints/Qwen2-VL-2B-Instruct \
