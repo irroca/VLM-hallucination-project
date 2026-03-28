@@ -14,6 +14,8 @@ data/coco_val2014/
 data/dpo/images/
 data/grpo/images/
 data/sft/llava_sft_15k.json
+data/sft/rlaifv_sft.json
+data/grpo/aokvqa_grpo_v2.json
 *.zip
 
 # ─── Wandb ───

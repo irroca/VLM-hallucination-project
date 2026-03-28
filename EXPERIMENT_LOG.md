@@ -325,9 +325,14 @@ python scripts/visualize.py
 
 ## Step 12: HuggingFace上传
 - **时间**: 2026-03-28
-- **模型**: SFT+GRPO+DPO (best F1=0.863)
-- **地址**: https://huggingface.co/leixinlin/Qwen2-VL-2B-SFT-GRPO-DPO-AntiHalluc
-- **大小**: 4.42GB (model.safetensors)
+
+### 上传的模型
+| 模型 | HuggingFace Repo |
+|------|------------------|
+| SFT (Stage 1) | [leixinlin/Qwen2-VL-2B-SFT-VLM-Halluc](https://huggingface.co/leixinlin/Qwen2-VL-2B-SFT-VLM-Halluc) |
+| SFT+GRPO (Stage 2a) | [leixinlin/Qwen2-VL-2B-SFT-GRPO-VLM-Halluc](https://huggingface.co/leixinlin/Qwen2-VL-2B-SFT-GRPO-VLM-Halluc) |
+| SFT+DPO (Stage 2b) | [leixinlin/Qwen2-VL-2B-SFT-DPO-VLM-Halluc](https://huggingface.co/leixinlin/Qwen2-VL-2B-SFT-DPO-VLM-Halluc) |
+| **SFT+GRPO+DPO (Stage 3, best)** | [leixinlin/Qwen2-VL-2B-SFT-GRPO-DPO-VLM-Halluc](https://huggingface.co/leixinlin/Qwen2-VL-2B-SFT-GRPO-DPO-VLM-Halluc) |
 
 ---
 

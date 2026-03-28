@@ -11,11 +11,19 @@
 | 项目 | 信息 |
 |------|------|
 | **基座模型** | [Qwen2-VL-2B-Instruct](https://huggingface.co/Qwen/Qwen2-VL-2B-Instruct) (2.21B params) |
-| **最佳模型** | [Qwen2-VL-2B-SFT-GRPO-DPO-AntiHalluc](https://huggingface.co/leixinlin/Qwen2-VL-2B-SFT-GRPO-DPO-AntiHalluc) |
-| **硬件** | 4 × NVIDIA A100-SXM4-80GB |
 | **训练框架** | HuggingFace Transformers + PEFT (QLoRA) + 自定义 GRPO Trainer |
 | **评测基准** | POPE (Polling-based Object Probing Evaluation) |
 | **核心创新** | 将 GRPO 可验证奖励从数学领域迁移到视觉 QA 幻觉抑制 |
+| **硬件** | 4 × NVIDIA A100-SXM4-80GB |
+
+### 训练模型（HuggingFace）
+
+| 模型 | 阶段 | HuggingFace Link |
+|------|------|-------------------|
+| SFT | Stage 1 | [leixinlin/Qwen2-VL-2B-SFT-VLM-Halluc](https://huggingface.co/leixinlin/Qwen2-VL-2B-SFT-VLM-Halluc) |
+| SFT + GRPO | Stage 2a | [leixinlin/Qwen2-VL-2B-SFT-GRPO-VLM-Halluc](https://huggingface.co/leixinlin/Qwen2-VL-2B-SFT-GRPO-VLM-Halluc) |
+| SFT + DPO | Stage 2b | [leixinlin/Qwen2-VL-2B-SFT-DPO-VLM-Halluc](https://huggingface.co/leixinlin/Qwen2-VL-2B-SFT-DPO-VLM-Halluc) |
+| **SFT + GRPO + DPO** (best) | Stage 3 | [leixinlin/Qwen2-VL-2B-SFT-GRPO-DPO-VLM-Halluc](https://huggingface.co/leixinlin/Qwen2-VL-2B-SFT-GRPO-DPO-VLM-Halluc) |
 
 ## 方法
 
