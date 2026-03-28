@@ -1,0 +1,23 @@
+{
+  "model": "dpo-beta0.1-merged",
+  "pope": {
+    "accuracy": 0.867,
+    "precision": 0.9033,
+    "recall": 0.822,
+    "f1": 0.8607,
+    "yes_rate": 0.455,
+    "hallucination_rate": 0.0967,
+    "refusal_rate": 0.0,
+    "avg_latency_ms": 1478.4,
+    "avg_response_length": 23.8,
+    "total_samples": 1000,
+    "errors": 0,
+    "category_metrics": {
+      "adversarial": {
+        "accuracy": 0.867,
+        "hallucination_rate": 0.0967,
+        "total": 1000
+      }
+    }
+  }
+}

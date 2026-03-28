@@ -1,0 +1,23 @@
+{
+  "model": "grpo-merged-bf16",
+  "pope": {
+    "accuracy": 0.865,
+    "precision": 0.8976,
+    "recall": 0.824,
+    "f1": 0.8592,
+    "yes_rate": 0.459,
+    "hallucination_rate": 0.1024,
+    "refusal_rate": 0.0,
+    "avg_latency_ms": 1456.8,
+    "avg_response_length": 23.8,
+    "total_samples": 1000,
+    "errors": 0,
+    "category_metrics": {
+      "adversarial": {
+        "accuracy": 0.865,
+        "hallucination_rate": 0.1024,
+        "total": 1000
+      }
+    }
+  }
+}

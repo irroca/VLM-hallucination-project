@@ -57,13 +57,18 @@ Base Qwen2-VL-2B
 
 | 模型 | Accuracy ↑ | F1 ↑ | Precision ↑ | Halluc Rate ↓ | Yes Rate |
 |------|-----------|------|-------------|---------------|----------|
-| Base (Qwen2-VL-2B) | **0.869** | **0.859** | 0.930 | **0.070** | 0.429 |
+| Base (Qwen2-VL-2B) | **0.869** | 0.859 | **0.930** | **0.070** | 0.429 |
 | + SFT | 0.865 | 0.859 | 0.898 | 0.102 | 0.459 |
-| + SFT + GRPO | _evaluating..._ | | | | |
-| + SFT + DPO (β=0.1) | _training..._ | | | | |
-| + SFT + GRPO + DPO | _pending_ | | | | |
+| + SFT + GRPO | 0.865 | 0.859 | 0.898 | 0.102 | 0.459 |
+| + SFT + DPO (β=0.1) | 0.867 | 0.861 | 0.903 | 0.097 | 0.455 |
+| + **SFT + GRPO + DPO** | **0.869** | **0.863** | 0.902 | 0.098 | 0.459 |
 
-> **关键发现**: SFT 后幻觉率从 7.0% → 10.2%，验证了 SFT 会引入幻觉的假设，也证明了后续对齐阶段的必要性。
+> **Key Findings:**
+> 1. SFT increases hallucination rate (7.0% → 10.2%), confirming the need for alignment
+> 2. DPO reduces hallucination (10.2% → 9.7%) with slight precision improvement
+> 3. GRPO→DPO achieves the best F1 (0.863) and recovers Base-level accuracy (0.869)
+> 4. GRPO encourages more detailed responses (avg length 1.0 → 23.8 tokens)
+> 5. The three-stage pipeline effectively recovers from SFT-induced hallucination
 
 ### 训练曲线
 

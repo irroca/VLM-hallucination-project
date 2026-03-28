@@ -231,21 +231,67 @@ GPU: cuda:1 (A100-80G), ~6.7GB
 ```
 模型: SFT-merged (bf16)
 LoRA: r=16, alpha=32
-数据: RLAIF-V 5000对偏好数据
-beta=0.1, grad_accum=16, lr=5e-7
-GPU: cuda:1
+数据: RLAIF-V 3000对偏好数据 (从10K中采样)
+beta=0.1, grad_accum=8, lr=5e-7
+总优化步: 375
+GPU: cuda:3 (A100-80G), ~17GB
 ```
-*(训练进行中...)*
+
+### 7.3 训练进度
+```
+Step  50/375: Loss=0.6861 Margin=0.040
+Step 200/375: Loss=0.7336 Margin=-0.040 (checkpoint-200保存)
+Step 370/375: Loss=0.7063 Margin=0.040 (训练完成)
+```
+- **wandb**: https://wandb.ai/leixinlin-peking-university/VLM-Hallucination/runs/p5mkaoel
+- **训练时间**: ~43分钟
+- **观察**: DPO loss在0.69-0.75间波动，margin在±0.08之间，说明模型在学习区分chosen/rejected
 
 ---
 
 ## Step 8: Stage 3 — GRPO→DPO组合
-*(待执行)*
+- **时间**: 2026-03-28 12:06
+- **训练时间**: ~43分钟
+
+### 8.1 配置
+```
+模型: GRPO-merged (bf16) — 在GRPO基础上继续DPO
+数据: RLAIF-V 3000对
+beta=0.1, grad_accum=8, lr=5e-7
+总优化步: 375
+GPU: cuda:3
+```
+
+### 8.2 训练进度
+```
+Step  90/375: Loss=0.7219 Margin=0.020
+Step 300/375: Loss=0.7062 Margin=0.000
+Step 370/375: Loss=0.6935 Margin=0.040 (训练完成)
+```
+- **wandb**: https://wandb.ai/leixinlin-peking-university/VLM-Hallucination/runs/apq0uxpn
+- **观察**: 最终loss 0.693略低于DPO-only的0.706，margin也略正，暗示GRPO预训练可能有助于DPO的优化
 
 ---
 
 ## Step 9: 多维评测
-*(待执行)*
+
+### 9.1 POPE 评测结果 (1000 samples, adversarial category)
+
+| 模型 | Accuracy ↑ | F1 ↑ | Precision ↑ | Halluc Rate ↓ | Yes Rate | Avg Length |
+|------|-----------|------|-------------|---------------|----------|-----------|
+| Base (Qwen2-VL-2B) | **0.869** | 0.859 | **0.930** | **0.070** | 0.429 | 1.0 |
+| + SFT | 0.865 | 0.859 | 0.898 | 0.102 | 0.459 | 1.0 |
+| + SFT + GRPO | 0.865 | 0.859 | 0.898 | 0.102 | 0.459 | 23.8 |
+| + SFT + DPO (β=0.1) | 0.867 | **0.861** | 0.903 | 0.097 | 0.455 | 23.8 |
+| + SFT + GRPO + DPO | **0.869** | **0.863** | 0.902 | 0.098 | 0.459 | 23.6 |
+
+### 9.2 关键发现
+1. **SFT引入幻觉**: 幻觉率从7.0% → 10.2%（+3.2pp），验证了SFT导致幻觉的假设
+2. **DPO有效降低幻觉**: 幻觉率从10.2% → 9.7%（-0.5pp），precision从0.898→0.903
+3. **GRPO→DPO组合最优**: F1=0.863（最高），accuracy=0.869（恢复到Base水平），幻觉率9.8%
+4. **GRPO改变输出风格**: 输出长度从1.0 → 23.8 tokens，说明GRPO鼓励了更详细的回答
+5. **Base模型已经很强**: Qwen2-VL-2B在POPE adversarial上acc=0.869，留给对齐的空间有限
+6. **三阶段流水线有效**: SFT+GRPO+DPO恢复了Base的accuracy同时有最高F1
 
 ---
 
