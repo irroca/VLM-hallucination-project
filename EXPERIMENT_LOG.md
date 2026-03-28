@@ -296,12 +296,38 @@ Step 370/375: Loss=0.6935 Margin=0.040 (训练完成)
 ---
 
 ## Step 10: 消融实验与幻觉分层分析
-*(待执行)*
+- **时间**: 2026-03-28
+
+### 10.1 可视化生成
+```bash
+python scripts/visualize.py
+```
+- 生成4张图表:
+  - `pope_comparison_bar.png` — 5模型POPE指标柱状图
+  - `halluc_progression.png` — 训练阶段vs幻觉率+F1曲线
+  - `precision_recall.png` — 精确率-召回率散点图
+  - `results_table.png` — 结果汇总表格图
+- 生成汇总JSON: `summary_all_models.json`
+
+### 10.2 消融分析
+- **算法消融** (GRPO vs DPO vs GRPO→DPO):
+  - DPO alone: 幻觉率 10.2% → 9.7% (↓0.5pp), F1 0.859 → 0.861
+  - GRPO alone: 幻觉率不变 (10.2%), F1不变 (0.859)
+  - GRPO→DPO: 幻觉率 10.2% → 9.8% (↓0.4pp), F1 0.859 → **0.863** (最高)
+  - **结论**: GRPO单独对POPE yes/no格式改善有限，但GRPO→DPO顺序有协同效应
 
 ---
 
 ## Step 11: Gradio Demo
-*(待执行)*
+*(可用scripts/demo_gradio.py启动)*
+
+---
+
+## Step 12: HuggingFace上传
+- **时间**: 2026-03-28
+- **模型**: SFT+GRPO+DPO (best F1=0.863)
+- **地址**: https://huggingface.co/leixinlin/Qwen2-VL-2B-SFT-GRPO-DPO-AntiHalluc
+- **大小**: 4.42GB (model.safetensors)
 
 ---
 

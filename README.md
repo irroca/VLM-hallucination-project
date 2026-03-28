@@ -11,6 +11,7 @@
 | 项目 | 信息 |
 |------|------|
 | **基座模型** | [Qwen2-VL-2B-Instruct](https://huggingface.co/Qwen/Qwen2-VL-2B-Instruct) (2.21B params) |
+| **最佳模型** | [Qwen2-VL-2B-SFT-GRPO-DPO-AntiHalluc](https://huggingface.co/leixinlin/Qwen2-VL-2B-SFT-GRPO-DPO-AntiHalluc) |
 | **硬件** | 4 × NVIDIA A100-SXM4-80GB |
 | **训练框架** | HuggingFace Transformers + PEFT (QLoRA) + 自定义 GRPO Trainer |
 | **评测基准** | POPE (Polling-based Object Probing Evaluation) |
