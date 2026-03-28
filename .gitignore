@@ -1,0 +1,48 @@
+# ─── Model Weights & Checkpoints ───
+checkpoints/
+*.safetensors
+*.bin
+*.pth
+*.pt
+*.ckpt
+*.gguf
+
+# ─── Large Data Files ───
+data/train2017/
+data/val2014/
+data/coco_val2014/
+data/dpo/images/
+data/grpo/images/
+data/sft/llava_sft_15k.json
+*.zip
+
+# ─── Wandb ───
+wandb/
+
+# ─── Python ───
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ─── Jupyter ───
+.ipynb_checkpoints/
+
+# ─── IDE ───
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ─── OS ───
+.DS_Store
+Thumbs.db
+
+# ─── Temp ───
+*.log
+nohup.out
+/tmp/

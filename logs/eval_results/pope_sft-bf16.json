@@ -1,0 +1,23 @@
+{
+  "model": "sft-bf16",
+  "pope": {
+    "accuracy": 0.509,
+    "precision": 0.7368,
+    "recall": 0.028,
+    "f1": 0.0539,
+    "yes_rate": 0.019,
+    "hallucination_rate": 0.2632,
+    "refusal_rate": 0.0,
+    "avg_latency_ms": 220.4,
+    "avg_response_length": 1.0,
+    "total_samples": 1000,
+    "errors": 0,
+    "category_metrics": {
+      "adversarial": {
+        "accuracy": 0.509,
+        "hallucination_rate": 0.2632,
+        "total": 1000
+      }
+    }
+  }
+}

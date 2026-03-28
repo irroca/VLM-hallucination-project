@@ -1,0 +1,23 @@
+{
+  "model": "base-qwen2vl-2b",
+  "pope": {
+    "accuracy": 0.51,
+    "precision": 1.0,
+    "recall": 0.02,
+    "f1": 0.0392,
+    "yes_rate": 0.01,
+    "hallucination_rate": 0.0,
+    "refusal_rate": 0.0,
+    "avg_latency_ms": 853.9,
+    "avg_response_length": 8.5,
+    "total_samples": 500,
+    "errors": 0,
+    "category_metrics": {
+      "adversarial": {
+        "accuracy": 0.51,
+        "hallucination_rate": 0.0,
+        "total": 500
+      }
+    }
+  }
+}
