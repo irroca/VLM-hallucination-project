@@ -1,0 +1,57 @@
+{
+  "Base": {
+    "accuracy": 0.869,
+    "f1": 0.859,
+    "precision": 0.9301,
+    "recall": 0.798,
+    "hallucination_rate": 0.0699,
+    "yes_rate": 0.429,
+    "refusal_rate": 0.0,
+    "avg_response_length": 1.0,
+    "avg_latency_ms": 115.5
+  },
+  "SFT": {
+    "accuracy": 0.865,
+    "f1": 0.8592,
+    "precision": 0.8976,
+    "recall": 0.824,
+    "hallucination_rate": 0.1024,
+    "yes_rate": 0.459,
+    "refusal_rate": 0.0,
+    "avg_response_length": 23.8,
+    "avg_latency_ms": 1108.8
+  },
+  "SFT+GRPO": {
+    "accuracy": 0.865,
+    "f1": 0.8592,
+    "precision": 0.8976,
+    "recall": 0.824,
+    "hallucination_rate": 0.1024,
+    "yes_rate": 0.459,
+    "refusal_rate": 0.0,
+    "avg_response_length": 23.8,
+    "avg_latency_ms": 1456.8
+  },
+  "SFT+DPO": {
+    "accuracy": 0.867,
+    "f1": 0.8607,
+    "precision": 0.9033,
+    "recall": 0.822,
+    "hallucination_rate": 0.0967,
+    "yes_rate": 0.455,
+    "refusal_rate": 0.0,
+    "avg_response_length": 23.8,
+    "avg_latency_ms": 1478.4
+  },
+  "SFT+GRPO+DPO": {
+    "accuracy": 0.869,
+    "f1": 0.8634,
+    "precision": 0.902,
+    "recall": 0.828,
+    "hallucination_rate": 0.098,
+    "yes_rate": 0.459,
+    "refusal_rate": 0.0,
+    "avg_response_length": 23.6,
+    "avg_latency_ms": 1116.7
+  }
+}
