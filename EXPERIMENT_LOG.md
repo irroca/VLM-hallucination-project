@@ -336,20 +336,33 @@ python scripts/visualize.py
 
 ---
 
-## Step 12: 可视化素材
-*(待执行)*
-
----
-
-## Step 13: 上传HuggingFace
-*(待执行)*
-
----
-
 ## 附录: 超参数总表
 | 阶段 | 参数 | 值 | 备注 |
 |------|------|----|------|
-| *(训练时填写)* | | | |
+| SFT | 基座模型 | Qwen2-VL-2B-Instruct | 2.21B params |
+| SFT | LoRA r / alpha | 32 / 64 | target: q,k,v,o,gate,up,down |
+| SFT | 量化 | QLoRA 4-bit NF4 | double quant |
+| SFT | 可训练参数 | 36.9M (1.64%) | |
+| SFT | 数据量 | 9,988条 | RLAIF-V chosen |
+| SFT | 优化器 | AdamW lr=2e-4 | cosine, warmup 5% |
+| SFT | 梯度累积 | 16 | batch_size=1 |
+| SFT | 总步数 | 624 | 1 epoch |
+| SFT | 显存 | ~48GB (A100-80G) | |
+| GRPO | LoRA r / alpha | 16 / 32 | target: q,k,v,o |
+| GRPO | 加载方式 | bf16 全精度 | 无量化 |
+| GRPO | num_generations | 4 | 每prompt生成4个回答 |
+| GRPO | max_steps | 300 | batch_size=1 |
+| GRPO | lr | 5e-6 | |
+| GRPO | 奖励函数 | correct+halluc+format | full模式 |
+| GRPO | 显存 | ~6.7GB | |
+| DPO | LoRA r / alpha | 16 / 32 | target: q,k,v,o |
+| DPO | 加载方式 | bf16 全精度 | 无量化 |
+| DPO | beta | 0.1 | |
+| DPO | 数据量 | 3,000对 | RLAIF-V subset |
+| DPO | 梯度累积 | 8 | batch_size=1 |
+| DPO | lr | 5e-7 | |
+| DPO | 总步数 | 375 | 1 epoch |
+| DPO | 显存 | ~17GB | |
 
 ## 附录: 踩坑记录
 | 问题 | 原因 | 解决方案 |
