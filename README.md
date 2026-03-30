@@ -175,7 +175,7 @@ python -u scripts/evaluate.py --model_path checkpoints/Qwen2-VL-2B-Instruct \
 | flash_attention_2 + QLoRA 报错 | 量化后中间计算用 float32 | 改用 sdpa 或不指定 attn |
 | Image features/tokens 不匹配 | batch>1 时 vision tokens 数不同 | batch_size=1 + grad_accum |
 | conda run 日志被缓冲 | conda run 内部管道缓冲 | 直接用 Python binary + `-u` |
-| Qwen2.5-VL-2B 不存在 | HF 最小为 3B | 改用 Qwen2-VL-2B-Instruct |
+| Qwen2.5-VL 无 2B 版本 | HF 最小为 3B | 改用 Qwen2-VL-2B-Instruct |
 | LLaVA-Instruct-150K 加载失败 | pyarrow 列类型推断 | 直接下载 JSON |
 | SFT merge 后模型只有 1.9G | QLoRA merge 在量化模型上不完整 | 先 bf16 加载 base → 叠加 LoRA → merge |
 | TRL DPOTrainer VLM 不兼容 | processor.tokenizer 属性缺失 | 自定义 DPO 训练循环 |

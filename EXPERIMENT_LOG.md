@@ -2,7 +2,7 @@
 
 ## 项目概要
 - **项目名称**: VLM幻觉抑制——SFT + GRPO可验证视觉奖励 + DPO 三阶段对齐
-- **基座模型**: Qwen2.5-VL-2B-Instruct
+- **基座模型**: Qwen2-VL-2B-Instruct
 - **硬件**: 4× NVIDIA A100-SXM4-80GB
 - **开始日期**: 2026-03-27
 
@@ -78,7 +78,7 @@ flash_attn: 2.8.3
 
 ## Step 3: 下载基座模型
 - **时间**: 2026-03-27
-- **模型**: Qwen2-VL-2B-Instruct (注: Qwen2.5-VL无2B版本，使用Qwen2-VL-2B替代)
+- **模型**: Qwen2-VL-2B-Instruct
 - **HF Repo**: `Qwen/Qwen2-VL-2B-Instruct`
 
 ### 3.1 模型查找
@@ -91,7 +91,7 @@ models = api.list_models(search='Qwen2-VL-2B', author='Qwen', limit=10)
 for m in models: print(m.id, m.downloads)
 "
 ```
-- **发现**: Qwen2.5-VL最小为3B，课程推荐Qwen3-VL-2B存在但需适配。选择Qwen2-VL-2B-Instruct（workspace RL-Factory兼容）。
+- **发现**: Qwen2.5-VL最小为3B，选择Qwen2-VL-2B-Instruct（2.21B参数，与workspace RL-Factory兼容）。
 
 ### 3.2 下载模型
 ```bash
@@ -370,7 +370,7 @@ python scripts/visualize.py
 | flash_attention_2报错 fp16/bf16 | QLoRA量化后中间计算用float32 | 改用sdpa或默认attention |
 | Image features/tokens不匹配 | batch>1时不同图片的vision token数不同 | batch_size=1 + grad_accum |
 | conda run日志被缓冲 | conda run内部管道缓冲 | 直接用Python二进制+`-u`标志 |
-| Qwen2.5-VL-2B-Instruct 404 | HF上不存在此repo | 改用Qwen2-VL-2B-Instruct |
+| Qwen2.5-VL无2B版本 | HF上Qwen2.5-VL最小为3B | 改用Qwen2-VL-2B-Instruct |
 | LLaVA-Instruct-150K schema错误 | load_dataset的pyarrow列类型推断失败 | 改用hf_hub_download直接下载JSON |
 | unzip不可用 | 系统未安装unzip命令 | 用Python zipfile模块解压 |
 | A-OKVQA无image_id | HF数据集中image是PIL对象 | 手动保存图像并创建v2数据集 |
